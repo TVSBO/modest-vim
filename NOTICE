@@ -1,0 +1,24 @@
+MODEST-derived code: https://github.com/L-J-Yuan/MODEST
+Copyright (c) 2025 Liu Jiangyuan. MIT license, retained in LICENSE.
+
+ViM backbone: https://github.com/hustvl/Vim
+models/vim retains its source copyright headers and Apache-2.0 license.
+models/vim/rope.py retains the EVA-02 / BAAI MIT attribution in its header.
+
+Bundled Mamba: https://github.com/state-spaces/mamba and https://github.com/hustvl/Vim
+Copyright (c) 2023 Albert Gu, Tri Dao; Apache-2.0 in third_party/mamba/LICENSE.
+Includes local bidirectional-v2 and causal-conv1d compatibility adaptations.
+The build entry point is adapted for local CUDA architecture detection.
+
+Causal Conv1d: https://github.com/Dao-AILab/causal-conv1d
+Bundled source and license are retained in third_party/causal_conv1d/.
+The build entry point is adapted for local CUDA architecture detection.
+
+Topology loss helpers in utils/cbdice_loss.py, utils/skeletonize.py and
+utils/soft_skeleton.py derive from cbDice (MICCAI 2024):
+https://github.com/PengchengShi1220/cbDice
+Apache-2.0 license retained in third_party/CBDICE_LICENSE.
+Retain upstream attribution when redistributing these helpers.
+
+This release packages the MODEST-ViM implementation and command-line entry points.
+Third-party components retain their respective licenses.

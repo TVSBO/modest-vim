@@ -1,0 +1,15 @@
+numpy<2
+Pillow>=9
+timm==0.4.12
+einops==0.4.1
+transformers==4.35.2
+monai==1.5.2
+scipy
+matplotlib
+opencv-python
+colour
+tqdm
+packaging
+ninja
+setuptools
+wheel

@@ -1,0 +1,140 @@
+{
+  "Model": {
+    "model_timm": "vim_small_patch16_384",
+    "type": "full",
+    "emb_dim": 384,
+    "resample_dim": 96,
+    "patch_size": 16,
+    "num_layers_encoder": 24,
+    "hooks": [
+      3,
+      7,
+      15,
+      23
+    ],
+    "read": "projection",
+    "pretrain": false,
+    "iterations": 2,
+    "path_model": "outputs/train",
+    "use_boundary_head": true,
+    "refine_levels": [
+      0,
+      1
+    ],
+    "refine_hidden_dim": 64,
+    "boundary_gcn_points": 96,
+    "boundary_gcn_threshold": 0.55,
+    "final_depth_use_sigmoid": true,
+    "bimamba_type": "v2",
+    "use_reflection": true,
+    "use_point_gcn": true,
+    "rgb_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "rgb_std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "use_boundary_guidance": true,
+    "use_cross_task": true,
+    "refine_residual_scale": 0.1,
+    "refiner_variant": "dense",
+    "refiner_checkpoint": false,
+    "reuse_invariant_features": false
+  },
+  "Trainer": {
+    "epochs": 30,
+    "loss_depth": "mse+grad+normal",
+    "loss_segmentation": "ce",
+    "ckpt_path": "",
+    "gamma": 0.5,
+    "seg_multi": 1.35,
+    "depth_multi": 0.75,
+    "boundary_multi": 0.3,
+    "boundary_align_multi": 0.08,
+    "boundary_pos_weight": 4.0,
+    "boundary_dice_weight": 1.0,
+    "depth_scale_multi": 1.0,
+    "depth_grad_multi": 0.6,
+    "depth_normal_multi": 0.2,
+    "depth_error_multi": 1.0,
+    "optim": "adam",
+    "lr_backbone": 3e-05,
+    "lr_scratch": 0.0001,
+    "momentum": 0.9,
+    "seed": 0,
+    "use_amp": true,
+    "max_grad_norm": 1.0,
+    "skip_nonfinite_batch": false,
+    "freeze_backbone_epochs": 0,
+    "eval_every": 1,
+    "eval_on_last_epoch": true,
+    "save_best": true,
+    "save_last": true,
+    "save_periodic": false,
+    "save_periodic_every": 2,
+    "train_bar_update_interval": 10,
+    "val_bar_update_interval": 5,
+    "disable_tqdm": true,
+    "bar_leave": false,
+    "seg_loss": {
+      "ce_weight": 1.0,
+      "dice_weight": 1.0,
+      "cbdice_weight": 0.04,
+      "use_cbdice": true,
+      "highres_only": true,
+      "cbdice_start_epoch": 8,
+      "cbdice_warmup_epochs": 6,
+      "fp32_topology_loss": true,
+      "val_use_cbdice": false
+    },
+    "weight_decay": 3e-05,
+    "amp_dtype": "bfloat16",
+    "boundary_depth_multi": 0.1,
+    "task_weighting": "fixed",
+    "evaluate_initial": true,
+    "freeze_bn_stats": false,
+    "depth_aux_valid_support": false,
+    "depth_valid_target_resize": false
+  },
+  "Dataset": {
+    "dataset_name": "my_new_dataset",
+    "my_new_dataset": {
+      "path": "data/clearpose",
+      "batch_size": 2,
+      "num_workers": 2,
+      "in_chans": 3,
+      "depth_min": 0.1,
+      "depth_max": 3.0,
+      "splits": {
+        "train_list": "data/train.txt",
+        "val_list": "data/val.txt",
+        "test_list": "data/test.txt"
+      },
+      "transforms": {
+        "im_resize": 384,
+        "p_flip": 0.5
+      },
+      "classes": {
+        "0": {
+          "name": "background"
+        },
+        "1": {
+          "name": "object"
+        }
+      },
+      "prefetch_factor": 1,
+      "pin_memory": true
+    }
+  },
+  "wandb": {
+    "enable": false,
+    "username": "User",
+    "images_to_show": 3,
+    "im_h": 384,
+    "im_w": 384
+  }
+}
